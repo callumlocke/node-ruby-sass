@@ -34,6 +34,7 @@ sass.on('ready', function () {
 
 ## To do
 
+- source maps
 - write benchmarks
 - see if repeat runs on the same file are actually any faster. if not, look at using Sass::Plugin?
 - make post install script to check if required gems are installed and print instructions to install them (or just install them?)
