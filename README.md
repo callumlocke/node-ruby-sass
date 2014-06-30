@@ -6,9 +6,7 @@
 
 This Node module is an attempt to provide a faster binding to Ruby Sass than currently available.
 
-Sass when used as part of a Rails app seems extremely fast compared to when using things like [gulp-ruby-sass](#) etc. I'm assuming this is because Rails uses a long-running Ruby process, thus avoiding having a Ruby spin-up penalty on every Sass compile, and benefiting from in-memory caching.
-
-This module tries to imitate the same approach in the hope it will be faster. Benchmarks to follow.
+Explanation: Sass in a Rails app with LiveReload seems much faster than things like [gulp-ruby-sass](https://github.com/sindresorhus/gulp-ruby-sass). I'm guessing this is because Rails runs Sass using the same Ruby process every compile, avoiding Ruby spin-up time, and benefiting from in-memory caching. This module tries to do something similar. Benchmarks to follow.
 
 
 ## Installation
@@ -32,6 +30,13 @@ sass.on('ready', function () {
     });
 });
 ```
+
+
+## To do
+
+- write benchmarks
+- see if repeat runs on the same file are actually any faster. if not, look at using Sass::Plugin?
+- make post install script to check if required gems are installed and print instructions to install them (or just install them?)
 
 
 ## Licence
