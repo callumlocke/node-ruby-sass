@@ -4,5 +4,4 @@ rvm:
 before_script:
   - npm install
 script:
-  - bundle
   - mocha
