@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     dnode (0.0.2)
       eventmachine

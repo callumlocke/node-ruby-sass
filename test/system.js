@@ -39,6 +39,8 @@ describe('node-ruby-sass', function () {
   });
 
   it('works with a big sass project', function (done) {
+    this.timeout(10000); // travis can be slow
+
     sass.compile(fixtures.bootstrap, function (err, css) {
       expect(err).to.be.null;
       expect(css).to.equal(expected.bootstrap);
