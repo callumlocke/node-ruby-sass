@@ -1,5 +1,7 @@
 # node-ruby-sass
 
+[![Build Status](https://secure.travis-ci.org/callumlocke/node-ruby-sass.png?branch=master)](http://travis-ci.org/callumlocke/node-ruby-sass)
+
 **WORK IN PROGRESS...**
 
 This Node module is an attempt to provide a faster binding to Ruby Sass than currently available.
