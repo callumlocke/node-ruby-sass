@@ -59,6 +59,10 @@ var Sass = function (options) {
                 else done(new Error('Unexpected output from Ruby app: ' + output));
             });
 
+            ruby.stderr.on('data', function (data) {
+                console.log('STDERR', data.toString());
+            });
+
             ruby.on('error', done);
         },
 
