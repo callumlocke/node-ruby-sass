@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'dnode'
 require 'sass'
+require 'dnode'
 require 'json'
 
 
