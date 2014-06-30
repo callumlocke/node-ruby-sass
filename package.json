@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/callumlocke/node-ruby-sass",
   "dependencies": {
-    "lodash": "~2.4.1",
     "win-spawn": "~2.0.0",
     "portfinder": "~0.2.1",
     "dnode": "~1.2.0",
