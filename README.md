@@ -18,26 +18,51 @@ $ npm install ruby-sass
 ## Usage
 
 ```js
-var Sass = require('ruby-sass');
+var sass = require('ruby-sass');
 
-var sass = new Sass(options);
-
-sass.on('ready', function () {
-    // this instance now has its own ruby process ready to repeatedly compile sass/scss files.
-
-    sass.compile('path/to/something.scss', function (err, css) {
-        // got the css (or an error with a *sass* stack trace)
-    });
+sass('path/to/something.scss', function (err, css) {
+    // got the css (or an error with a *sass* stack trace)
 });
 ```
+
+Repeated calls should be faster than the first one.
+
+You can also pass options as a second argument.
+
+### Options
+
+Just whatever options are accepted by Ruby Sass.
+
+
+## Alternative API
+
+```js
+var Sass = require('ruby-sass').Sass;
+
+var sass = new Sass();
+
+sass.compile(filename, options, callback); // same as the `sass` function in standard API.
+```
+
+### Constructor options
+
+These are optional.
+
+- `port` – which port to use
+- `basePort` (default: `8500`) – if you don't set a `port`, portfinder will be used to find one manually, starting at this base port.
 
 
 ## To do
 
 - source maps
+- make it so you don't have to wait for ready
+- need a way to kill it and clean up?
+- fix issue with ports staying in use after node process ends
 - write benchmarks
-- see if repeat runs on the same file are actually any faster. if not, look at using Sass::Plugin?
+- see if repeat runs on the same file are actually any faster. if not, look at using Sass::Plugin (?)
 - make post install script to check if required gems are installed and print instructions to install them (or just install them?)
+- pass in sass options per-file, not per-instance
+- simplify api
 
 
 ## Licence

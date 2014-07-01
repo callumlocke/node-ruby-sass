@@ -2,7 +2,7 @@
 
 var path = require('path');
 var fs = require('fs');
-var Sass = require('..');
+var sass = require('..');
 var chai = require('chai');
 var expect = chai.expect;
 
@@ -23,15 +23,9 @@ for (var key in expected) {
   }
 }
 
-describe('node-ruby-sass', function () {
-  var sass = new Sass();
-
-  before(function (done) {
-    sass.on('ready', done);
-  });
-
+describe('ruby-sass', function () {
   it('works with a simple scss file with an import', function (done) {
-    sass.compile(fixtures.simple, function (err, css) {
+    sass(fixtures.simple, function (err, css) {
       expect(err).to.be.null;
       expect(css).to.equal(expected.simple);
       done();
@@ -41,7 +35,7 @@ describe('node-ruby-sass', function () {
   it('works with a big sass project', function (done) {
     this.timeout(10000); // travis can be slow
 
-    sass.compile(fixtures.bootstrap, function (err, css) {
+    sass(fixtures.bootstrap, function (err, css) {
       expect(err).to.be.null;
       expect(css).to.equal(expected.bootstrap);
       done();
@@ -49,9 +43,9 @@ describe('node-ruby-sass', function () {
   });
 
   it('handles sass syntax errors gracefully', function (done) {
-    sass.compile(fixtures.broken, function (err, css) {
+    sass(fixtures.broken, function (err, css) {
       expect(css).to.not.exist;
-      expect(err).to.be.an.instanceof(Sass.CompilationError);
+      expect(err).to.be.an.instanceof(sass.SassError);
       expect(err.message).to.contain('Invalid CSS after');
       done();
     });

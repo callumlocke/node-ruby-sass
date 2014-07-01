@@ -3,11 +3,7 @@ require 'sass'
 require 'dnode'
 require 'json'
 
-
-# get options from the command line
 $port = Integer(ARGV[0])
-$sass_options = JSON.parse ARGV[1]
-
 
 # NOTE - can't work out why this won't work when placed at the bottom, but
 # seems to work here anyway for some reason...
@@ -16,9 +12,12 @@ STDOUT.flush
 
 
 DNode.new({
-  :f => proc { |file, cb|
+  :f => proc { |request, cb|
 
-    engine = Sass::Engine.for_file file, $sass_options
+    file = request[:file]
+    options = request[:options]
+
+    engine = Sass::Engine.for_file file, options
 
     begin
       cb.call({
