@@ -55,14 +55,14 @@ These are optional.
 ## To do
 
 - source maps
-- make it so you don't have to wait for ready
+- ~~make it so you don't have to wait for ready~~
 - need a way to kill it and clean up?
 - fix issue with ports staying in use after node process ends
 - write benchmarks
 - see if repeat runs on the same file are actually any faster. if not, look at using Sass::Plugin (?)
 - make post install script to check if required gems are installed and print instructions to install them (or just install them?)
-- pass in sass options per-file, not per-instance
-- simplify api
+- ~~pass in sass options per-file, not per-instance~~
+- ~~simplify api~~
 
 
 ## Licence
