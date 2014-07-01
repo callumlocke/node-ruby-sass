@@ -1,3 +1,6 @@
 /node_modules/
-/.sass-cache/
+.sass-cache
 /manual/
+/test/fixtures/*.css
+/test/fixtures/*.map
+exp.rb

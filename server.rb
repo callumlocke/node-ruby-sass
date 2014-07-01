@@ -12,27 +12,60 @@ STDOUT.flush
 
 
 DNode.new({
-  :f => proc { |request, cb|
+  :f => proc { |options, cb|
 
-    file = request[:file]
-    options = request[:options]
+    file = options[:filename]
 
-    engine = Sass::Engine.for_file file, options
+    real_options = if options[:sourcemap]
+      css_path = file.sub(/[^.]+\z/, "css")
+      sourcemap_path = "#{css_path}.map"
+
+      {
+        sourcemap: true,
+        sourcemap_filename: sourcemap_path,
+        css_path: css_path,
+      }
+    else
+      {
+
+      }
+    end
+
+    engine = Sass::Engine.for_file file, real_options
+
+    # STDERR.write String(options[:sourcemap])
+    # STDERR.flush
 
     begin
-      cb.call({
-        file: file,
-        css: engine.render
-      })
+      if real_options[:sourcemap] == true
+        css, sourcemap = engine.render_with_sourcemap(File.basename(sourcemap_path))
+
+        cb.call({
+          file: file,
+          css: css,
+          sourcemap: sourcemap.to_json({
+            css_path: css_path,
+            sourcemap_path: sourcemap_path
+          })
+        })
+      else
+        css = engine.render
+
+        cb.call({
+          file: file,
+          css: css
+        })
+      end
     rescue Sass::SyntaxError => e
+
       cb.call({
         file: file,
-        error: true,
-        message: e.message,
+        error: e.message,
         sass_line: e.sass_line,
         sass_template: e.sass_template,
         sass_backtrace: e.sass_backtrace
       })
+
     end
   }
 }).listen($port)

@@ -54,7 +54,7 @@ These are optional.
 
 ## To do
 
-- source maps
+- ~~source maps~~
 - ~~make it so you don't have to wait for ready~~
 - ~~kill ruby process when node exits or on uncaught exception~~
 - ~~make a way to stop it manually~~
