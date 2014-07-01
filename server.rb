@@ -13,35 +13,29 @@ STDOUT.flush
 
 DNode.new({
   :f => proc { |options, cb|
+    sass_file = options[:filename]
 
-    file = options[:filename]
+    real_options = {
+      filename: sass_file
+    }
 
-    real_options = if options[:sourcemap]
-      css_path = file.sub(/[^.]+\z/, "css")
+    if options[:sourcemap]
+      css_path = sass_file.sub(/[^.]+\z/, "css")
       sourcemap_path = "#{css_path}.map"
 
-      {
-        sourcemap: true,
-        sourcemap_filename: sourcemap_path,
-        css_path: css_path,
-      }
-    else
-      {
-
-      }
+      real_options[:sourcemap] = true
+      real_options[:css_path] = css_path
+      real_options[:sourcemap_filename] = sourcemap_path
     end
 
-    engine = Sass::Engine.for_file file, real_options
-
-    # STDERR.write String(options[:sourcemap])
-    # STDERR.flush
+    engine = Sass::Engine.for_file sass_file, real_options
 
     begin
-      if real_options[:sourcemap] == true
+      if real_options[:sourcemap]
         css, sourcemap = engine.render_with_sourcemap(File.basename(sourcemap_path))
 
         cb.call({
-          file: file,
+          file: sass_file,
           css: css,
           sourcemap: sourcemap.to_json({
             css_path: css_path,
@@ -52,14 +46,14 @@ DNode.new({
         css = engine.render
 
         cb.call({
-          file: file,
+          file: sass_file,
           css: css
         })
       end
     rescue Sass::SyntaxError => e
 
       cb.call({
-        file: file,
+        file: sass_file,
         error: e.message,
         sass_line: e.sass_line,
         sass_template: e.sass_template,
