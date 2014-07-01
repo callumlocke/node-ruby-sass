@@ -4,4 +4,4 @@ node_js:
 before_install:
   - bundle
 script:
-  - mocha
+  - npm test
