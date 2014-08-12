@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'sass'
 require 'dnode'
-require 'json'
 
 $port = Integer(ARGV[0])
 
@@ -26,6 +25,10 @@ DNode.new({
       real_options[:sourcemap] = true
       real_options[:css_path] = css_path
       real_options[:sourcemap_filename] = sourcemap_path
+    end
+
+    if options[:loadPaths]
+      real_options[:load_paths] = options[:loadPaths]
     end
 
     engine = Sass::Engine.for_file sass_file, real_options

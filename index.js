@@ -1,3 +1,5 @@
+'use strict';
+
 var Sass = require('./lib/sass');
 var SassError = require('./lib/sass-error');
 

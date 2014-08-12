@@ -4,3 +4,4 @@
 /test/fixtures/*.css
 /test/fixtures/*.map
 exp.rb
+TESTOUTPUT.txt
